@@ -13,7 +13,9 @@ const cors = require("cors")
 const path = require('path')
 
 const app = express();
-
+app.get('/', (req, res) => {
+    res.send('hello world')
+})
 // global middleware
 app.use(express.static('public'))
 app.use(express.json());
