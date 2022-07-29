@@ -158,7 +158,7 @@ const addEducation = async (req, res) => {
     const author = mongoose.Types.ObjectId(req.user._id);
 
     let data = await education.create({
-        title, organization, address, city, country, website, author
+        title, organization, address, city, country, website, author, datefrom, dateto
     })
     if (data) {
         res.send(data)
