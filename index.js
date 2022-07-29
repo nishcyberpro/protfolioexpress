@@ -49,6 +49,6 @@ mongoose.connect(mongoDB)
 
 
 
-app.listen((process.env.PORT || 5000), "0.0.0.0", () => {
+app.listen((process.env.PORT || 3000), "0.0.0.0", () => {
     console.log("listenting on port 5000")
 });
