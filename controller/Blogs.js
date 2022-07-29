@@ -7,9 +7,57 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 const getblogs = async (req, res) => {
 
-    let blogs_data = await blogsSchema.find({}).sort({ published_date: 'desc' });
+    let totalblog = 0;
+    let perpage = 10;
+    let search_term = "";
+    let pageno = 1
 
-    res.send(blogs_data)
+    console.log(req.query);
+    totalblog = await blogsSchema.count({});
+    if (req.query.perpage) {
+        perpage = req.query.perpage;
+    }
+    if (req.query.search_term) {
+        search_term = req.query.search_term
+    }
+    if (req.query.perpage) {
+        perpage = req.query.perpage
+    }
+    if (req.query.pageno) {
+        pageno = req.query.pageno
+    }
+
+
+    console.log(totalblog)
+    let skip = 0;
+    if (pageno > 1) {
+        skip = (pageno - 1) * perpage
+    }
+
+    //searching blog with keyword in title and content
+
+    let blogs_data = await blogsSchema.find({
+        $or: [{ "title": { $regex: RegExp(search_term, "i") } },
+        { "content": { $regex: RegExp(search_term, "i") } },
+
+        ]
+    }
+    )
+        .skip(skip)
+        .limit(perpage)
+        .sort({ published_date: 'desc' });
+
+
+
+
+    // let blogs_data = await blogsSchema.find({})
+    //     .skip(1)
+    //     .limit(3)
+    //     .sort({ published_date: 'desc' });
+
+    res.send(blogs_data
+
+    )
 
 
 }

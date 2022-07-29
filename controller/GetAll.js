@@ -19,13 +19,28 @@ const skills = require('../model/Protfolio/Skills')
 const getBlogDataBySlug = async (req, res) => {
     let slug = req.params.id
     let result = await blogSchema.findOne({ slug: slug })
+    if (result) {
+        res.send(result)
 
-    res.send(result)
+    }
+    else {
+        //res.send({ "data": "none" })
+    }
+
 }
 const getPortfolioDataById = async (req, res) => {
     let slug = req.params.id
+
     let portdata = await portslugSchema.findOne({ slug: slug })
+    if (!portdata) {
+        res.send("no dtata")
+        return
+
+    }
     console.log(portdata)
+
+
+
     const author = mongoose.Types.ObjectId(portdata.author);
     let allData = []
 

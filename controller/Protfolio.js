@@ -397,14 +397,28 @@ const setPortfolioBySlug = (req, res) => {
 }
 
 const checkportSlug = async (req, res) => {
-    console.log(req.body.linkslug)
     let slug = req.body.linkslug
+    console.log(slug)
     const author = mongoose.Types.ObjectId(req.user._id);
+    let slugAvailable = await getportSlug.findOne({ author: author })
+    if (slugAvailable) {
+        if (slug !== slugAvailable.slug && slug !== '') {
+            console.log(slug)
 
-    let result = await getportSlug.findOne({ slug: slug })
-    if (result) {
+            let slugupdate = await getportSlug.findOneAndUpdate({ author: author },
+                { slug, author })
 
-        res.send("data exist")
+            if (slugupdate) {
+
+                res.send({ "slug": slug })
+
+            }
+        }
+        else {
+            res.send({ "slug": slugAvailable.slug })
+
+        }
+
     }
     else {
         let data = await getportSlug.create({
@@ -412,12 +426,31 @@ const checkportSlug = async (req, res) => {
 
         })
         if (data) {
-            res.send(data)
+            res.send({ "slug": data.slug })
         }
         else {
             res.send("error")
         }
     }
+
+    // let result = await getportSlug.findOne({ slug: slug })
+    // if (result) {
+    //     console.log(result)
+
+    //     res.send("data exist")
+    // }
+    // else {
+    //     let data = await getportSlug.create({
+    //         slug, author
+
+    //     })
+    //     if (data) {
+    //         res.send(data)
+    //     }
+    //     else {
+    //         res.send("error")
+    //     }
+    // }
 }
 
 module.exports = {

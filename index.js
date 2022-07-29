@@ -30,12 +30,25 @@ app.use("/api/blog", blog_route)
 app.use("/getall", getall_route)
 
 
-var mongoDB = 'mongodb://localhost:27017/mywebsite';
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+// var mongoDB = 'mongodb://localhost:27017/mywebsite';
+
+
+
+
+const mongoDB = "mongodb+srv://nsn01:Ln8WrUtEFuVv7Vkr@cluster0.j2vwlvk.mongodb.net/nsn?retryWrites=true&w=majority";
+
+mongoose.connect(mongoDB)
+    .then(res => {
+        console.log("connected")
+    })
+    .catch(res => {
+        console.log("err")
+    });
 
 
 
 
 
-
-app.listen(process.env.PORT);
+app.listen((process.env.PORT || 5000), "0.0.0.0", () => {
+    console.log("listenting on port 5000")
+});

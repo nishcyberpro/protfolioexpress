@@ -56,7 +56,7 @@ router.delete('/:id', auth, blog_controller.deleteblogs)
 router.get("/:id", blog_controller.getBlogById)
 
 //router.get("/content/:slug", blog_controller.getBlogBySlug)
-router.put('', auth, upload.array('photos', 12), blog_controller.editblogs)
+router.put('/:id', auth, upload.array('photos', 12), blog_controller.editblogs)
 
 
 module.exports = router
