@@ -1,10 +1,10 @@
 const express = require('express')
 
 const router = express.Router();
-const User = require("../model/user")
+const User = require("../model/User")
 const auth = require("../middleware/authentication")
 
-const user_controller = require("../controller/user")
+const user_controller = require("../controller/User")
 
 //const authentication = require("../middleware/authentication")
 
