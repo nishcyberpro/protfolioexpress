@@ -21,15 +21,15 @@ app.use(express.static('public'))
 app.use(express.json());
 app.use(cors())
 
-app.use("/api/user", user_route)
-app.use("/portfolio", portfolio_route)
+app.use("/api/User", user_route)
+app.use("/Portfolio", portfolio_route)
 
 
-app.use("/api/pages", pages_route)
-app.use("/api/contact", contact_route)
-app.use("/api/blog", blog_route)
+app.use("/api/Pages", pages_route)
+app.use("/api/Contact", contact_route)
+app.use("/api/Blog", blog_route)
 
-app.use("/getall", getall_route)
+app.use("/Getall", getall_route)
 
 
 // var mongoDB = 'mongodb://localhost:27017/mywebsite';
